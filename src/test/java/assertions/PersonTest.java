@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -106,7 +105,7 @@ public class PersonTest {
     @Test
     public void getAgeReturns10YearsIf2006(){
         Person p = new Person("Hans", "Meier", LocalDate.of(2006, 1, 1));
-        
+
         int differenceTo2016 = LocalDate.now().getYear() - 2016;
         Period alter = p.getAge();
 
