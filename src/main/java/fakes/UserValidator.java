@@ -13,7 +13,7 @@ public class UserValidator {
 
     public static boolean doesUsernameExist(String username){
         for(User user : db.getUsers()){
-            if (user.getUsername().equals(username)){
+            if (user.getUsername().equalsIgnoreCase(username)){
                 return true;
             }
         }
@@ -21,11 +21,8 @@ public class UserValidator {
     }
 
     public static boolean isValidUsername(String username){
-        if(Character.isDigit(username.charAt(0))){
-            return false;
-        } else if(username.equals(null)){
-            return false;
-        } else if(!username.chars().allMatch(Character::isLetterOrDigit)){
+        if(Character.isDigit(username.charAt(0)) ||
+                username.equals(null) && !username.chars().allMatch(Character::isLetterOrDigit)){
             return false;
         }
         return true;

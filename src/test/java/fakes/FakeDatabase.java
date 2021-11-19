@@ -14,6 +14,6 @@ public class FakeDatabase extends Database {
 
     @Override
     public List<User> getUsers() {
-        return null;
+        return users;
     }
 }

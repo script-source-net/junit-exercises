@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+
 class UserValidatorTest {
 
     /**
@@ -15,21 +20,25 @@ class UserValidatorTest {
 
         @Test
         void returnsTrueIfOnlyLetters() {
+            //Username muss keine Digits oder alphanumerische Zeichen beinhalten
             Assertions.assertTrue(new UserValidator().isValidUsername("jhonnyd"));
         }
 
         @Test
         void returnsFalseIfStartsWithNumber(){
+            //Username darf nicht mit Digit beginnen
             Assertions.assertFalse(new UserValidator().isValidUsername("1jhonnyd"));
         }
 
         @Test
         void returnsTrueIfContainsNumberButNotAsFirstChar() {
+            //Benötigt keine spezielle Kondition im Code, da nur das erste Zeichen kein Digit sein darf
             Assertions.assertTrue(new UserValidator().isValidUsername("jhonny3d"));
         }
 
         @Test
         void returnsFalseIfContainsAnyNonAlphanumericChar() {
+            //Username darf kein alphanumerisches Zeichen beinhalten
             Assertions.assertFalse(new UserValidator().isValidUsername("jhonny!d"));
         }
     }
@@ -41,7 +50,6 @@ class UserValidatorTest {
     static class doesUsernameExist {
         @Test
         void returnsFalseIfUsernameNotInDBYet__FAKE() {
-            // TODO implementiere / ergänze den Test hier, so dass dieser kompiliert und grün ist.
             Database db = new FakeDatabase();
             UserValidator uv = new UserValidator(db);
             boolean usernameExist = uv.doesUsernameExist("peter");
@@ -50,26 +58,38 @@ class UserValidatorTest {
 
         @Test
         void returnsFalseIfUsernameNotInDBYet__MOCKITO() {
-            // TODO implement test
+            Database db = mock(Database.class);
+            final UserValidator uv = new UserValidator(db);
+            boolean usernameExist = uv.doesUsernameExist("peter");
+            Assertions.assertFalse(usernameExist);
         }
 
         @Test
         void returnsTrueIfUsernameInDB__FAKE() {
-            // TODO implementiere / ergänze den Test hier, so dass dieser kompiliert und grün ist.
-
-            // boolean usernameExist = uv.doesUsernameExist("peter");
-
-            // Assertions.assertTrue(usernameExist);
+            Database db = new FakeDatabase();
+            UserValidator uv = new UserValidator(db);
+            db.addUser(new User("peter"));
+            boolean usernameExist = uv.doesUsernameExist("peter");
+            Assertions.assertTrue(usernameExist);
         }
 
         @Test
         void returnsTrueIfUsernameInDB__MOCKITO() {
-            // TODO implement test
+            Database db = mock(Database.class);
+            final UserValidator uv = new UserValidator(db);
+            doReturn(Arrays.asList(new User("peter"))).when(db).getUsers();
+            boolean usernameExist = uv.doesUsernameExist("peter");
+            Assertions.assertTrue(usernameExist);
         }
 
         @Test
         void returnsTrueIfSameNameInDBButWithDifferentLetterCasing() {
             // TODO implement test
+            Database db = new FakeDatabase();
+            UserValidator uv = new UserValidator(db);
+            db.addUser(new User("peter"));
+            boolean usernameExist = uv.doesUsernameExist("peTer");
+            Assertions.assertTrue(usernameExist);
         }
     }
 }
