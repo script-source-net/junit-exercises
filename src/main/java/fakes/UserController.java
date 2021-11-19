@@ -2,7 +2,15 @@ package fakes;
 
 public class UserController {
 
-    private static Database db = FileDatabase.getInstance();
+    private static Database db;
+
+    public UserController(){
+        this.db = FileDatabase.getInstance();;
+    }
+
+    public UserController(UserValidator uv){
+
+    }
 
     public Message create(User user){
         if(user == null){

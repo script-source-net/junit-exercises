@@ -15,23 +15,22 @@ class UserValidatorTest {
 
         @Test
         void returnsTrueIfOnlyLetters() {
-            // TODO Testcode anpassen, damit er das testet was der Testname sagt.
-            Assertions.assertTrue(new UserValidator().isValidUsername(null));
+            Assertions.assertTrue(new UserValidator().isValidUsername("jhonnyd"));
         }
 
         @Test
         void returnsFalseIfStartsWithNumber(){
-            // TODO implement test
+            Assertions.assertFalse(new UserValidator().isValidUsername("1jhonnyd"));
         }
 
         @Test
         void returnsTrueIfContainsNumberButNotAsFirstChar() {
-            // TODO implement test
+            Assertions.assertTrue(new UserValidator().isValidUsername("jhonny3d"));
         }
 
         @Test
         void returnsFalseIfContainsAnyNonAlphanumericChar() {
-            // TODO implement test
+            Assertions.assertFalse(new UserValidator().isValidUsername("jhonny!d"));
         }
     }
 
@@ -43,10 +42,10 @@ class UserValidatorTest {
         @Test
         void returnsFalseIfUsernameNotInDBYet__FAKE() {
             // TODO implementiere / ergänze den Test hier, so dass dieser kompiliert und grün ist.
-
-            // boolean usernameExist = uv.doesUsernameExist("peter");
-
-            // Assertions.assertFalse(usernameExist);
+            Database db = new FakeDatabase();
+            UserValidator uv = new UserValidator(db);
+            boolean usernameExist = uv.doesUsernameExist("peter");
+            Assertions.assertFalse(usernameExist);
         }
 
         @Test

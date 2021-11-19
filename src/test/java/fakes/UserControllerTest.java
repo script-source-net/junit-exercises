@@ -41,6 +41,10 @@ class UserControllerTest {
       // 3. Assert: Rückgabewert von UserController.create prüfen
 
       // TODO implement test
+      UserController controller = new UserController(new FakeUserValidator());
+      User user = new User("peter");
+      Message result = controller.create(user);
+      Assertions.assertEquals(result.status,Message.Status.OK);
     }
 
     @Test
