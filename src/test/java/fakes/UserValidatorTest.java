@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 import java.util.Collections;
 
-class UserValidatorTest {
+class   UserValidatorTest {
 
     @Nested
     class isValidUsername{
