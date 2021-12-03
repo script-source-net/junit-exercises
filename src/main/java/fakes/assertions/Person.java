@@ -1,4 +1,4 @@
-package assertions;
+package fakes.assertions;
 
 import java.time.LocalDate;
 import java.time.Period;

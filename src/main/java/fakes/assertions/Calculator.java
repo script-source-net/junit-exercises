@@ -1,4 +1,4 @@
-package assertions;
+package fakes.assertions;
 
 import java.util.Scanner;
 
@@ -13,5 +13,13 @@ public class Calculator {
     }
     public static double addition(double a, double b){
         return a + b;
+    }
+
+    public static double multiply(double a, double b) {
+        try {
+            return a * b;
+        } catch (ArithmeticException e){
+            return 0;
+        }
     }
 }
